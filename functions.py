@@ -1,11 +1,6 @@
 import json
 
-def compareClasses(studentName,studentClasses):
-
-    #get student name
-    #get their classes
-    #compare against all tutors with same classes
-    #return tutors that have those classes
+def classSearch(className,userType):
 
     with open('studentData.json','r+') as file:
         studentData = json.load(file)
@@ -15,19 +10,128 @@ def compareClasses(studentName,studentClasses):
         tutorData = json.load(file)
         file.close()
 
+    #student searches for tutor 
+    if(userType == 'student'):
 
-    #find correct student data
-    for i in studentData['users']:
-        if(i['name'] == studentName):
-            correctUser = i
+        for i in tutorData['users']:
+            for j in i['classes']:
+                if(j == className):
+                    print(i['name'])
 
-    #compare class student needs to all tutors
+    elif(userType == 'tutor'):
+        for i in studentData['users']:
+            for j in i['classes']:
+                if(j == className):
+                    print(i['name'])
+
+def nameSearch(name,userType):
+
+    with open('studentData.json','r+') as file:
+        studentData = json.load(file)
+        file.close()
+
+    with open('tutorData.json','r+') as file:
+        tutorData = json.load(file)
+        file.close()
+
+    correctUser = 'None'
+     #tutor searching for student
+    if(userType == 'tutor'):
+        for i in studentData['users']:
+            if(i['name'] == name):
+                correctUser = i
+                print("User Found")
+            # else:
+            #     print("User not Found")
+
+    elif(userType == 'student'):
+        for i in tutorData['users']:
+            if(i['name'] == name):
+                correctUser = i
+                print('User Found')
+            # else:
+            #     print("User not Found")
+    
+def tutorLogin(username,password):
+
+    with open('tutorData.json','r+') as file:
+        tutorData = json.load(file)
+        file.close()
+
     for i in tutorData['users']:
-        for j in i['classes']:
-            if(j == studentClasses):
-                print(i['name'])
-        
-        
-        
+        if(i['username'] == username and i['password'] == password):
+            print('Login Successful\n')
+            return True
+        else:
+            print('Invalid Credentials\n')
+            return False
 
-compareClasses('Eli','CSCE121')
+def studentLogin(username,password):
+    
+    with open('studentData.json','r+') as file:
+        studentData = json.load(file)
+        file.close()
+
+    for i in studentData['users']:
+        if(i['username'] == username and i['password'] == password):
+            print('Login Successful\n')
+            return True
+        else:
+            print('Invalid Credentials')
+            return False
+
+def createAccount(userType):
+    if(userType == "student"):
+        
+        username = input("Username: ")
+        password = input("Password: ")
+        studentName = input("Name: ")
+        studentPriceMax = input("Max Price/hour: $")
+        studentClasses = input("Classes You Need Help In: ").split()
+
+        userInfo = {
+            'name' : studentName,
+            'price' : studentPriceMax,
+            'classes' : studentClasses,
+            'username' : username,
+            'password' : password
+        }
+
+        with open('studentData.json', 'r+') as file:
+            data={}
+            data = json.load(file)
+            file.seek(0)
+            data['users'].append(userInfo)
+            json.dump(data,file,indent=4)
+            file.close()
+
+    if(userType == "tutor"):
+        username = input("Username: ")
+        password = input("Password: ")
+        tutorName = input("Name: ")
+        tutorPrice = input("Price/hour: $")
+        tutorLocations = input("Locations: ").split()
+        tutorMajor = input("Major: ")
+        tutorGPA = input("GPA: ")
+        tutorClasses = input("Classes: ").split()
+
+        userInfo = {
+            'name' : tutorName,
+            'price' : tutorPrice,
+            'locations' : tutorLocations,
+            'major' : tutorMajor,
+            'gpa' : tutorGPA,
+            'classes' : tutorClasses,
+            'username' : username,
+            'password' : password
+        }
+
+        with open('tutorData.json', 'r+') as file:
+            data={}
+            data = json.load(file)
+            file.seek(0)
+            data['users'].append(userInfo)
+            json.dump(data,file,indent=4)
+            file.close()
+
+
