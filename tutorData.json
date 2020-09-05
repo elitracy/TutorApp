@@ -1,0 +1,18 @@
+{
+    "users": [
+        {
+            "name": "Erick",
+            "price": "10",
+            "locations": [
+                "Evans",
+                "Sweets",
+                "PearlCup"
+            ],
+            "major": "General Engineering",
+            "gpa": "4.0",
+            "classes": [
+                "CSCE121"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "users": [
+        {
+            "name": "Eli",
+            "price": "20",
+            "classes": [
+                "CSCE121",
+                "PERF301"
+            ]
+        }
+    ]
+}
