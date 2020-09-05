@@ -1,34 +1,12 @@
 {
     "users": [
         {
-            "name": "Erick",
-            "price": "10",
+            "name": "Eli",
+            "price": "20",
             "classes": [
-                "ENGR102",
-                "MATH141",
-                "CSCE121"
-            ],
-            "username": "erick",
-            "password": "password"
-        },
-        {
-            "name": "Matt",
-            "price": "10",
-            "classes": [
-                "MATH141"
-            ],
-            "username": "matt",
-            "password": "password"
-        },
-        {
-            "name": "John Doe",
-            "price": "10",
-            "classes": [
-                "MATH141",
-                "PHIL205"
-            ],
-            "username": "johndoe",
-            "password": "password"
+                "CSCE121",
+                "PERF301"
+            ]
         }
     ]
 }

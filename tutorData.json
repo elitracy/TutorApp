@@ -1,38 +1,18 @@
 {
     "users": [
         {
-            "name": "Eli Tracy",
-            "price": "20",
+            "name": "Erick",
+            "price": "10",
             "locations": [
                 "Evans",
                 "Sweets",
-                "TheBrew"
+                "PearlCup"
             ],
-            "major": "Computer Science",
+            "major": "General Engineering",
             "gpa": "4.0",
             "classes": [
-                "CSCE121",
-                "ENGR102",
-                "MATH141",
-                "MATH142"
-            ],
-            "username": "elitracy",
-            "password": "Left0518"
-        },
-        {
-            "name": "Jane Doe",
-            "price": "20",
-            "locations": [
-                "Sweets",
-                "Evans"
-            ],
-            "major": "Business",
-            "gpa": "3.6",
-            "classes": [
-                "SOCI205"
-            ],
-            "username": "janedoe",
-            "password": "password"
+                "CSCE121"
+            ]
         }
     ]
 }
