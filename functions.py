@@ -63,7 +63,7 @@ def tutorLogin(username,password):
         if(i['username'] == username and i['password'] == hashlib.md5(password.encode()).hexdigest()):
             print('Login Successful\n')
             return True, username
-    print('Invalid Credentials\n')
+    print('\nInvalid Credentials\n')
     return False
 
 def studentLogin(username,password):
@@ -77,7 +77,7 @@ def studentLogin(username,password):
             print('Login Successful\n')
             return True, username
 
-    print('Invalid Credentials')
+    print('\nInvalid Credentials\n')
     return False
 
 def createAccount(userType):
