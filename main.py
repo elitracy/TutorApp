@@ -47,23 +47,28 @@ while(userInput != 'quit' or userInput != 'q'):
         userInput = input("Student or Tutor: ")
         print()
 
-        #login as a student
-        if(userInput == 'student'.casefold()):
-            username = input("Username: ")
-            password = input("Password: ")
-            loginOutput = functions.studentLogin(username,password)
-            validUser = loginOutput[0]
-            currentUser = loginOutput[1]
-            userType = 'student'
+        try:
+            #login as a student
+            if(userInput == 'student'.casefold()):
+                username = input("Username: ")
+                password = input("Password: ")
+                loginOutput = functions.studentLogin(username,password)
+                validUser = loginOutput[0]
+                currentUser = loginOutput[1]
+                userType = 'student'
 
-        #login as a tutor
-        if(userInput == 'tutor'.casefold()):
-            username = input("Username: ")
-            password = input("Password: ")
-            loginOutput = functions.tutorLogin(username,password)
-            validUser = loginOutput[0]
-            currentUser = loginOutput[1]
-            userType = 'tutor'
+            #login as a tutor
+            if(userInput == 'tutor'.casefold()):
+                username = input("Username: ")
+                password = input("Password: ")
+                loginOutput = functions.tutorLogin(username,password)
+                validUser = loginOutput[0]
+                currentUser = loginOutput[1]
+                userType = 'tutor'
+        except Exception as e:
+            print(e,'\n')
+        
+        
 
     if(userInput == 'create account'.casefold()):
         userInput = input("Student or Tutor: ")
