@@ -29,6 +29,24 @@
             ],
             "username": "johndoe",
             "password": "password"
+        },
+        {
+            "name": "Elias Tracy",
+            "price": "20",
+            "classes": [
+                "MATH141"
+            ],
+            "username": "elitracy19",
+            "password": "36132dd0f41fc950f1577691b3d29f2f"
+        },
+        {
+            "name": "paola g",
+            "price": "10",
+            "classes": [
+                "MATH140"
+            ],
+            "username": "paolag",
+            "password": "e10adc3949ba59abbe56e057f20f883e"
         }
     ]
 }

@@ -1,12 +1,12 @@
 import functions
 
-
-
 userInput = ''
 validUser = False
 userType = ''
+currentUser = 'None'
 
 while(userInput != 'quit' or userInput != 'q'):
+    print("Logged in as: %s" % currentUser)
 
     #allow user to quit application
     if(userInput == 'q' or userInput == 'quit'):
@@ -17,22 +17,30 @@ while(userInput != 'quit' or userInput != 'q'):
         userInput = input("Login or Create Account: ")
         print()
     else:
+        search = input("Search by [ Name | Class | Price ]: ").split()
 
+        if(search[0] == 'q' or search[0] == 'quit'):
+            break
         #search for users based on user type 
         if(userType == 'student'):
             #students search for tutors
-            search = input("Search for Tutors by Name or Class: ")
             print()
-
-            functions.classSearch(search,'student')
-            functions.nameSearch(search,'student')
+            if(search[0] == 'name'.casefold()):
+                functions.nameSearch(search[1],'student')
+            elif(search[0] == 'class'.casefold()):    
+                functions.classSearch(search[1],'student')
+            elif(search[0] == 'price'.casefold()):
+                functions.priceSearch(search[1],'student')
 
         elif(userType == 'tutor'):
             #tutors search for students
-            search = input("Search for Students by Name or Class: ")
             print()
-            functions.classSearch(search,'tutor')
-            functions.nameSearch(search,'tutor')
+            if(search[0] == 'name'.casefold()):
+                functions.nameSearch(search[1],'tutor')
+            elif(search[0] == 'class'.casefold()):    
+                functions.classSearch(search[1],'tutor')
+            elif(search[0] == 'price'.casefold()):
+                functions.priceSearch(search[1],'tutor')
 
     #user login
     if(userInput == 'login'.casefold()):
@@ -43,15 +51,18 @@ while(userInput != 'quit' or userInput != 'q'):
         if(userInput == 'student'.casefold()):
             username = input("Username: ")
             password = input("Password: ")
-            validUser = functions.studentLogin(username,password)
-            print(validUser)
+            loginOutput = functions.studentLogin(username,password)
+            validUser = loginOutput[0]
+            currentUser = loginOutput[1]
             userType = 'student'
 
         #login as a tutor
         if(userInput == 'tutor'.casefold()):
             username = input("Username: ")
             password = input("Password: ")
-            validUser = functions.tutorLogin(username,password)
+            loginOutput = functions.tutorLogin(username,password)
+            validUser = loginOutput[0]
+            currentUser = loginOutput[1]
             userType = 'tutor'
 
     if(userInput == 'create account'.casefold()):
@@ -59,12 +70,12 @@ while(userInput != 'quit' or userInput != 'q'):
         print()
 
         if(userInput == "student".casefold()):
-            functions.createAccount('student')
+            currentUser = functions.createAccount('student')[1]
             validUser = True
             userType = 'student'
 
         elif(userInput == "tutor".casefold()):
-            functions.createAccount('tutor')
+            currentUser = functions.createAccount('tutor')[1]
             validUser = True
             userType = 'tutor'
 
