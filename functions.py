@@ -1,4 +1,5 @@
 import json
+import hashlib
 
 def classSearch(className,userType):
 
@@ -38,7 +39,7 @@ def nameSearch(name,userType):
      #tutor searching for student
     if(userType == 'tutor'):
         for i in studentData['users']:
-            if(i['name'] == name):
+            if(name in i['name'] ):
                 correctUser = i
                 print("User Found")
             # else:
@@ -46,7 +47,7 @@ def nameSearch(name,userType):
 
     elif(userType == 'student'):
         for i in tutorData['users']:
-            if(i['name'] == name):
+            if(name in i['name']):
                 correctUser = i
                 print('User Found')
             # else:
@@ -59,12 +60,11 @@ def tutorLogin(username,password):
         file.close()
 
     for i in tutorData['users']:
-        if(i['username'] == username and i['password'] == password):
+        if(i['username'] == username and i['password'] == hashlib.md5(password.encode()).hexdigest()):
             print('Login Successful\n')
-            return True
-        else:
-            print('Invalid Credentials\n')
-            return False
+            return True, username
+    print('Invalid Credentials\n')
+    return False
 
 def studentLogin(username,password):
     
@@ -73,12 +73,12 @@ def studentLogin(username,password):
         file.close()
 
     for i in studentData['users']:
-        if(i['username'] == username and i['password'] == password):
+        if(i['username'] == username and i['password'] == hashlib.md5(password.encode()).hexdigest()):
             print('Login Successful\n')
-            return True
-        else:
-            print('Invalid Credentials')
-            return False
+            return True, username
+
+    print('Invalid Credentials')
+    return False
 
 def createAccount(userType):
     if(userType == "student"):
@@ -94,7 +94,7 @@ def createAccount(userType):
             'price' : studentPriceMax,
             'classes' : studentClasses,
             'username' : username,
-            'password' : password
+            'password' : hashlib.md5(password.encode()).hexdigest()
         }
 
         with open('studentData.json', 'r+') as file:
@@ -123,7 +123,7 @@ def createAccount(userType):
             'gpa' : tutorGPA,
             'classes' : tutorClasses,
             'username' : username,
-            'password' : password
+            'password' : hashlib.md5(password.encode()).hexdigest()
         }
 
         with open('tutorData.json', 'r+') as file:
@@ -134,4 +134,31 @@ def createAccount(userType):
             json.dump(data,file,indent=4)
             file.close()
 
+    return username
+
+def priceSearch(maxPrice,userType):
+
+    with open('studentData.json','r+') as file:
+        studentData = json.load(file)
+        file.close()
+
+    with open('tutorData.json','r+') as file:
+        tutorData = json.load(file)
+        file.close()
+
+    #student searches for tutor 
+    if(userType == 'student'):
+
+        for i in tutorData['users']:
+            for j in i['price']:
+                if(j <= maxPrice and j!='0'):
+                    print("%s charges %s per hour." % (i['name'], i['price']) )
+        return i['name'],i['price']
+
+    elif(userType == 'tutor'):
+        for i in studentData['users']:
+            for j in i['price']:
+                if(j <= maxPrice and j!='0'):
+                    print("%s will pay up to %s per hour." % (i['name'], i['price']) )
+        return i['name'],i['price']
 
